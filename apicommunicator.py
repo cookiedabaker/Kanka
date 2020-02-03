@@ -7,16 +7,16 @@
 ### - Search/selection ability
 
 import requests
-import json
-import time
 
 # Campaign specific information
-api_key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImZmZjMzY2Y3NjU1Mjk3NmZjZmRhNmYzMzEyNDg2OWM4YWQ2NTU2NTkxOWIxYTg1NWMzYzU1ZGIyOTFkZTViMzJjNDE1ODQ0MGYxN2NlZmQwIn0.eyJhdWQiOiIxIiwianRpIjoiZmZmMzNjZjc2NTUyOTc2ZmNmZGE2ZjMzMTI0ODY5YzhhZDY1NTY1OTE5YjFhODU1YzNjNTVkYjI5MWRlNWIzMmM0MTU4NDQwZjE3Y2VmZDAiLCJpYXQiOjE1ODA2ODQwNjcsIm5iZiI6MTU4MDY4NDA2NywiZXhwIjoxNjEyMzA2NDY3LCJzdWIiOiIyMjAyMyIsInNjb3BlcyI6W119.MWn_ebZejLQ_xVbmP89Kl8WkPlnHZ9e1w1ZJZ4HqKDy9s9OSo_BJdYxozHcO4ELvGXVa50QFl4buszx_j0Fd4IcvfixBrBH5k_l0aynJloyItW55RhHwomKUuGeh4ZAVZ9Mi8_6-87V7qTmGSDCFns9YT4216btW2WOJdPEuO-h4xpvuBzY8gR9NZ7fPHkpDe4SEqqNJaiDCNAsAzhFF-k5FWtZJXD9lnwWekagnhnw7yZ2k09_b2ZUL3JZTyi2LUkzcB0Dvsprnj1GWofWjmauAm2H2YtRuBX34zQoKjmBbhCjjeT0WHXvGR2DFdow70LPnc2u1-oy_BjqABbsk6-qG3AtenrOA35AhW9l40_A4m1iZg5Oe7qB6ksj2fwH-ZXwL8mDjpiYZtPYch95urq-6EGcSde0iTLTixmYK7WAUurhbHnUduAldBUshK0ZWPodQ8Y25-Q_rRZ8RkiYq3JPS6aBNFF43_2X7MBl6NotIZQzuM03NMB3rhEbeERALALyiDMYN6fve7O0nQW0OuXECIsa3Tmo885YeoVwFszRKs9rtg4PUFA1G0s6SDETMnQrFloiz-zDjW1fhgukCDiwjAQsZnEhcKmucxYQPDtfIz5NEu3bHmIzDIKCt7cHhhYf2wVv45WZS3KXsUDP0Otvg7bViZrs_QemkiJABlEM"
+f = open('apikey.dat','r')
+api_key = f.read()
+f.close()
 campaign_id = '19141'
 
 # Type of information wanting to be extracted
-while true:
-    query_type = input('Type of Query (lowercase):')
+while True:
+    query_type = input('Type of Query: ').lower()
     if query_type == '':
         break
     elif query_type == 'characters':
@@ -53,6 +53,7 @@ while true:
         print('Invalid entry.')
         continue
 
+# API querying
 url = 'https://kanka.io/api/1.0/campaigns/' + campaign_id + query_type
 
 headers = {
@@ -64,13 +65,11 @@ payload = {
 
 }
 
-response = requests.get(url, headers=headers, params=payload)
+if task == "get":
+    response = requests.get(url, headers=headers, params=payload)
+elif task == "post":
+    response = requests.post(url, headers=headers, data=payload)
 
 if response.status_code != '200':
     print('The program has encountered a communication problem.')
     print(response.status_code)
-
-def jprint(obj):
-    # create a formatted string of the Python JSON object
-    text = json.dumps(obj, sort_keys=True, indent=4)
-    print(text)
