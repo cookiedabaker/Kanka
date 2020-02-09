@@ -9,7 +9,7 @@
 import requests
 
 # Campaign specific information
-f = open('apikey.dat','r')
+f = open('api.key','r')
 api_key = f.read()
 f.close()
 campaign_id = '19141'
