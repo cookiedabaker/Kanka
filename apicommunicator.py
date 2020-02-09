@@ -14,36 +14,15 @@ api_key = f.read()
 f.close()
 campaign_id = '19141'
 
+modules = ['characters','locations','families','organizations','items','notes',
+    'events','calendars','races','quests','journals','tags','conversations']
+
 # Type of information wanting to be extracted
 while True:
     query_type = input('Type of Query: ').lower()
     if query_type == '':
         break
-    elif query_type == 'characters':
-        break
-    elif query_type == 'locations':
-        break
-    elif query_type == 'families':
-        break
-    elif query_type == 'organizations':
-        break
-    elif query_type == 'items':
-        break
-    elif query_type == 'notes':
-        break
-    elif query_type == 'events':
-        break
-    elif query_type == 'calendars':
-        break
-    elif query_type == 'races':
-        break
-    elif query_type == 'quests':
-        break
-    elif query_type == 'journals':
-        break
-    elif query_type == 'tags':
-        break
-    elif query_type == 'conversations':
+    elif query_type in modules:
         break
     elif query_type == 'dice rolls':
         if query_type != 'dice_rolls':
